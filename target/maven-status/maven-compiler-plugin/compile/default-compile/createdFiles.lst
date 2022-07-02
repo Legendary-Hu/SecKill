@@ -1,10 +1,16 @@
 com\shnu\seckill\mapper\UserMapper.class
-com\shnu\seckill\controller\UserController.class
 com\shnu\seckill\SeckillDemoApplication.class
 com\shnu\seckill\service\impl\UserServiceImpl.class
+com\shnu\seckill\utils\CookieUtil.class
 com\shnu\seckill\validator\IsMobile.class
+com\shnu\seckill\config\redisConfig.class
 com\shnu\seckill\pojo\User.class
+com\shnu\seckill\exception\GlobalExceptionHandler.class
+com\shnu\seckill\exception\GlobalException.class
+com\shnu\seckill\config\UserArgumentResolver.class
+com\shnu\seckill\config\WebConfig.class
 com\shnu\seckill\utils\RespBeanEnum.class
+com\shnu\seckill\controller\GoodsController.class
 com\shnu\seckill\controller\LoginController.class
 com\shnu\seckill\utils\MD5Util.class
 com\shnu\seckill\validator\IsMobileValidator.class
@@ -13,3 +19,4 @@ com\shnu\seckill\service\IUserService.class
 com\shnu\seckill\controller\DemoController.class
 com\shnu\seckill\utils\ValidatorUtil.class
 com\shnu\seckill\utils\RespBean.class
+com\shnu\seckill\utils\UUIDUtil.class

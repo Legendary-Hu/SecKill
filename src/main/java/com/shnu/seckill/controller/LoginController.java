@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Author:RonClaus
  * Date:2022/6/28
@@ -34,9 +37,9 @@ public class LoginController {
 
     @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
     @ResponseBody
-    public RespBean dologin(@Validated LogInfo user){
+    public RespBean dologin(@Validated LogInfo user, HttpServletRequest request, HttpServletResponse response){
 //        log.info(user.getMobile()+user.getPassword());
-        return userService.doLogin(user);
+        return userService.doLogin(user,request,response);
 
 
     }

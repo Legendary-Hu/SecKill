@@ -5,6 +5,9 @@ import com.shnu.seckill.info.LogInfo;
 import com.shnu.seckill.pojo.User;
 import com.shnu.seckill.utils.RespBean;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * <p>
  *  服务类
@@ -15,5 +18,7 @@ import com.shnu.seckill.utils.RespBean;
  */
 public interface IUserService extends IService<User> {
 
-    RespBean doLogin(LogInfo user);
+    RespBean doLogin(LogInfo user, HttpServletRequest request, HttpServletResponse response);
+
+    User  getUserByReids(String ticket, HttpServletRequest request, HttpServletResponse response);
 }
