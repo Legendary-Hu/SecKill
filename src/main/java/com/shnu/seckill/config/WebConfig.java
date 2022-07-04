@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * Description:WebMVCConfig
  */
 @Configuration
-//@EnableWebMvc
+@EnableWebMvc  ///配置类的优先级大于配置文件yaml，会拦截静态资源
 public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private UserArgumentResolver userArgumentResolver;
@@ -22,5 +23,14 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(userArgumentResolver);
+    }
+
+    /**
+     * 添加资源处理器,指定静态资源目录
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
     }
 }

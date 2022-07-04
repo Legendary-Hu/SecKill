@@ -67,7 +67,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         CookieUtil.setCookie(request,response,"userTicket",ticke);
 
 
-        return RespBean.success();
+        return RespBean.success(ticke);
     }
 
     /**

@@ -8,6 +8,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/seckill?useUnicode=true&characherEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
+    #Linux
+#    password: Zy981022.
+    #本地
     password: Zy981022
     hikari:
       #?????
@@ -28,7 +31,8 @@ spring:
   #redis conf
   redis:
     host: 124.223.197.115
-    port: 6379
+#    host: localhost
+    port: 6376
     database: 0
     password: zy981022.
     timeout: 10000ms

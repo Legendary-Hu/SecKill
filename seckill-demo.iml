@@ -131,5 +131,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.3.21" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.6" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.60" level="project" />
   </component>
 </module>
