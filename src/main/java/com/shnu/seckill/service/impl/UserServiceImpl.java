@@ -7,6 +7,7 @@ import com.shnu.seckill.mapper.UserMapper;
 import com.shnu.seckill.pojo.User;
 import com.shnu.seckill.service.IUserService;
 import com.shnu.seckill.utils.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -26,7 +27,6 @@ import javax.validation.constraints.NotNull;
  * @since 2022-06-28
  */
 @Service
-
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Autowired
@@ -46,26 +46,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         String mobile = user.getMobile();
         String password = user.getPassword();
-        //参数校验
-//        if(StringUtils.isEmpty(mobile)||StringUtils.isEmpty(password)){
-//            return RespBean.error(RespBeanEnum.LOGIN_ERROR);
-//        }
-//        if(!ValidatorUtil.isMobile(mobile)){
-//            return RespBean.error(RespBeanEnum.MOBILE_ERROR);
-//        }
 
         User user1 = userMapper.selectById(mobile);
         if (user1==null) throw new GlobalException(RespBeanEnum.LOGIN_ERROR);
         //判断密码是否正确
         if(!MD5Util.FromPassToDbPass(password,user1.getSalt()).equals(user1.getPassword())){
             throw new GlobalException(RespBeanEnum.LOGIN_ERROR);
-
         }
         String ticke = UUIDUtil.uuid(); //生成UUID
-//        request.getSession().setAttribute(ticke,user1);
+
         redisTemplate.opsForValue().set("user:"+ticke,user1); //往redis存用户信息实现分布式session
         CookieUtil.setCookie(request,response,"userTicket",ticke);
-
 
         return RespBean.success(ticke);
     }
@@ -86,6 +77,29 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
 
         return user;
+    }
+
+    /**
+     * 更新密码 ,删除缓存
+     * @param userTicket
+     * @param password
+     * @param request
+     * @param response
+     * @return
+     */
+    @Override
+    public RespBean updatePassword(String userTicket, String password, HttpServletRequest request, HttpServletResponse response) {
+        User user = (User) redisTemplate.opsForValue().get("user:" + userTicket);
+        if (user==null){
+            throw new GlobalException(RespBeanEnum.MOBILE_NOT_EXIST);
+        }
+        user.setPassword(MD5Util.inputToDbPass(password,user.getSalt()));
+        int res = userMapper.updateById(user);
+        if (res==1){
+            redisTemplate.opsForValue().set("user:"+userTicket,user);
+            return RespBean.success();
+        }
+        return RespBean.error(RespBeanEnum.PASSWD_UPDATE_FAIL);
     }
 
 }

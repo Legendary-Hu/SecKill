@@ -38,23 +38,23 @@ public class UserUtil {
         }
         System.out.println("create users");
         //插入数据库
-        Connection conn = getConn();
-        String sql = "insert into t_user(login_count,nickname,register_date,salt,password,id) values(?,?,?,?,?,?)";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        for (int i = 0; i < users.size(); i++) {
-            User user = users.get(i);
-            pstmt.setInt(1,user.getLoginCount());
-            pstmt.setString(2,user.getNickname());
-            pstmt.setTimestamp(3,new Timestamp(user.getRegisterDate().getTime()));
-            pstmt.setString(4,user.getSalt());
-            pstmt.setString(5,user.getPassword());
-            pstmt.setLong(6,user.getId());
-            pstmt.addBatch();
-        }
-        pstmt.executeBatch();
-        pstmt.clearParameters();
-        conn.close();
-        System.out.println("insert to db");
+//        Connection conn = getConn();
+//        String sql = "insert into t_user(login_count,nickname,register_date,salt,password,id) values(?,?,?,?,?,?)";
+//        PreparedStatement pstmt = conn.prepareStatement(sql);
+//        for (int i = 0; i < users.size(); i++) {
+//            User user = users.get(i);
+//            pstmt.setInt(1,user.getLoginCount());
+//            pstmt.setString(2,user.getNickname());
+//            pstmt.setTimestamp(3,new Timestamp(user.getRegisterDate().getTime()));
+//            pstmt.setString(4,user.getSalt());
+//            pstmt.setString(5,user.getPassword());
+//            pstmt.setLong(6,user.getId());
+//            pstmt.addBatch();
+//        }
+//        pstmt.executeBatch();
+//        pstmt.clearParameters();
+//        conn.close();
+//        System.out.println("insert to db");
         //登录，生成userTicket
         String urlString = "http://localhost:8080/login/doLogin";
         File file = new File("C:\\Users\\89197\\Desktop\\Java\\config.txt");

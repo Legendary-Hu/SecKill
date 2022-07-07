@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("/login")
-@Slf4j
 public class LoginController {
     @Autowired
     private IUserService userService;

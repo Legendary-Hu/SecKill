@@ -1,10 +1,12 @@
 package com.shnu.seckill.controller;
 
 
+import com.shnu.seckill.info.DetailInfo;
 import com.shnu.seckill.info.GoodsInfo;
 import com.shnu.seckill.pojo.User;
 import com.shnu.seckill.service.IGoodsService;
 import com.shnu.seckill.service.IUserService;
+import com.shnu.seckill.utils.RespBean;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,7 @@ public class GoodsController {
     /**
      * windows 优化前QPS 3489
      * Linux 优化前QPS   846
+     * Linux 页面缓存优化后QPS 1614
      * 跳转商品页面
      * @param user
      * @param model
@@ -122,5 +125,40 @@ public class GoodsController {
             valueOperations.set("goodDetail:"+goodsId,html,60,TimeUnit.SECONDS); //将页面存入缓存
         }
         return html;
+    }
+    /**
+     * 跳转商品详情页
+     * url缓存
+     * @param user
+     * @param goodsId
+     * @return
+     */
+    @RequestMapping("/detail/{goodsId}")
+    @ResponseBody
+    public RespBean toDetail2(User user, @PathVariable Long goodsId){
+
+        GoodsInfo good = goodsService.findGoodById(goodsId);
+        Date startDate = good.getStartDate();
+        Date endDate = good.getEndDate();
+        Date nowDate = new Date();
+        //秒杀状态
+        int secKillStatus = 0;
+        //秒杀倒计时
+        int remainSeconds = 0;
+        if (nowDate.before(startDate)){
+            remainSeconds = (int) ((startDate.getTime()-nowDate.getTime())/1000);
+        }else if (nowDate.after(endDate)){
+            secKillStatus = 2;
+            remainSeconds = -1;
+        }else{
+            secKillStatus = 1;
+            remainSeconds = 0;
+        }
+        DetailInfo detailInfo = new DetailInfo();
+        detailInfo.setUser(user);
+        detailInfo.setGoodsInfo(good);
+        detailInfo.setSecKillStatus(secKillStatus);
+        detailInfo.setRemainSeconds(remainSeconds);
+        return RespBean.success(detailInfo);
     }
 }

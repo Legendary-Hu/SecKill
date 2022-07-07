@@ -37,6 +37,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse.class);
         String ticket = CookieUtil.getCookieValue(request, "userTicket");
+
         if (StringUtils.isEmpty(ticket)){
             return null;
         }

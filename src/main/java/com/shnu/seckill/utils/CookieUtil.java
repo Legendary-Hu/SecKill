@@ -1,5 +1,7 @@
 package com.shnu.seckill.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import java.net.URLEncoder;
  * Date:2022/6/30
  * Description:None
  */
+@Slf4j
 public class CookieUtil {
     /**
      * 得到Cookie的值, 不编码
@@ -141,11 +144,14 @@ public class CookieUtil {
                 cookieValue = URLEncoder.encode(cookieValue, "utf-8");
             }
             Cookie cookie = new Cookie(cookieName, cookieValue);
+//            cookie.setSecure(false);
+//            cookie.setHttpOnly(true);
             if (cookieMaxage > 0)
                 cookie.setMaxAge(cookieMaxage);
             if (null != request) {// 设置域名的cookie
                 String domainName = getDomainName(request);
                 System.out.println(domainName);
+//                log.info(domainName);
                 if (!"localhost".equals(domainName)) {
                     cookie.setDomain(domainName);
                 }

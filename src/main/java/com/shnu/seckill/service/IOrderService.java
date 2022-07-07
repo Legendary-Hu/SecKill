@@ -2,6 +2,7 @@ package com.shnu.seckill.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.shnu.seckill.info.GoodsInfo;
+import com.shnu.seckill.info.OrderDetail;
 import com.shnu.seckill.pojo.Order;
 import com.shnu.seckill.pojo.User;
 
@@ -21,4 +22,11 @@ public interface IOrderService extends IService<Order> {
      * @return
      */
     Order seckill(User user, GoodsInfo good);
+
+    /**
+     * 订单详情
+     * @param orderId
+     * @return
+     */
+    OrderDetail getDetail(Long orderId);
 }
