@@ -30,8 +30,8 @@ spring:
       connection-test-query: SELECT 1
   #redis conf
   redis:
-    host: 124.223.197.115
-#    host: localhost
+
+    host: localhost
     port: 6376
     database: 0
     password: zy981022.
@@ -68,8 +68,8 @@ spring:
 
   #RabbitMQ
   rabbitmq:
-    host: 124.223.197.115
-#    host: localhost
+
+   host: localhost
     username: guest
     password: guest
     virtual-host: /

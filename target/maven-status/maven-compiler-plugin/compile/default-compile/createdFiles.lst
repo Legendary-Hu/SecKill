@@ -1,4 +1,3 @@
-com\shnu\seckill\controller\SeckillOrderController.class
 com\shnu\seckill\service\impl\UserServiceImpl.class
 com\shnu\seckill\service\ISeckillGoodsService.class
 com\shnu\seckill\utils\CookieUtil.class
@@ -9,7 +8,6 @@ com\shnu\seckill\config\WebConfig.class
 com\shnu\seckill\info\SeckillMessage.class
 com\shnu\seckill\utils\RespBeanEnum.class
 com\shnu\seckill\config\AccessLimitInterceptor.class
-com\shnu\seckill\controller\SeckillGoodsController.class
 com\shnu\seckill\controller\GoodsController.class
 com\shnu\seckill\service\ISeckillOrderService.class
 com\shnu\seckill\mapper\OrderMapper.class
