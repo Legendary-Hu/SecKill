@@ -8,6 +8,7 @@ com\shnu\seckill\service\impl\SeckillOrderServiceImpl.class
 com\shnu\seckill\config\WebConfig.class
 com\shnu\seckill\info\SeckillMessage.class
 com\shnu\seckill\utils\RespBeanEnum.class
+com\shnu\seckill\config\AccessLimitInterceptor.class
 com\shnu\seckill\controller\SeckillGoodsController.class
 com\shnu\seckill\controller\GoodsController.class
 com\shnu\seckill\service\ISeckillOrderService.class
@@ -16,6 +17,7 @@ com\shnu\seckill\utils\MD5Util.class
 com\shnu\seckill\mapper\GoodsMapper.class
 com\shnu\seckill\info\LogInfo.class
 com\shnu\seckill\service\IUserService.class
+com\shnu\seckill\config\AccessLimit.class
 com\shnu\seckill\utils\ValidatorUtil.class
 com\shnu\seckill\utils\RespBean.class
 com\shnu\seckill\utils\JSONUtil.class
@@ -41,6 +43,7 @@ com\shnu\seckill\info\OrderDetail.class
 com\shnu\seckill\config\RabbitMQTopicConfig.class
 com\shnu\seckill\rabbitmq\MQReceiver.class
 com\shnu\seckill\controller\LoginController.class
+com\shnu\seckill\config\UserContext.class
 com\shnu\seckill\info\GoodsInfo.class
 com\shnu\seckill\pojo\Goods.class
 com\shnu\seckill\mapper\SeckillOrderMapper.class

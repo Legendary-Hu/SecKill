@@ -15,13 +15,17 @@ import com.shnu.seckill.service.IGoodsService;
 import com.shnu.seckill.service.IOrderService;
 import com.shnu.seckill.service.ISeckillGoodsService;
 import com.shnu.seckill.service.ISeckillOrderService;
+import com.shnu.seckill.utils.MD5Util;
 import com.shnu.seckill.utils.RespBeanEnum;
+import com.shnu.seckill.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -104,4 +108,51 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         orderDetail.setGoodsInfo(good);
         return orderDetail;
     }
+
+    /**
+     * 获取秒杀地址
+     * @param user
+     * @param goodsId
+     * @return
+     */
+    @Override
+    public String createPath(User user, Long goodsId) {
+        String str = MD5Util.md5(UUIDUtil.uuid() + "123456");
+        redisTemplate.opsForValue().set("seckillPath:"+user.getId()+":"+goodsId,str,60, TimeUnit.SECONDS);
+        return str;
+    }
+
+    /**
+     * 校验秒杀地址
+     * @param user
+     * @param goodsId
+     * @param path
+     * @return
+     */
+    @Override
+    public boolean checkPath(User user, Long goodsId, String path) {
+        if (user==null||goodsId<0|| StringUtils.isEmpty(path)){
+            return false;
+        }
+        String str = (String) redisTemplate.opsForValue().get("seckillPath:" + user.getId() + ":" + goodsId);
+        return path.equals(str);
+    }
+
+    /**
+     * 验证码校验
+     * @param user
+     * @param goodsId
+     * @param captcha
+     * @return
+     */
+    @Override
+    public boolean checkCaptcha(User user, Long goodsId, String captcha) {
+        if (user==null||goodsId<0||captcha==null){
+            return false;
+        }
+        String rediaCaptcha = (String) redisTemplate.opsForValue().get("captcha:" + user.getId() + ":" + goodsId);
+        return captcha.equals(rediaCaptcha);
+    }
+
+
 }
